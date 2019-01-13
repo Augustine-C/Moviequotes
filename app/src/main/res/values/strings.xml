@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Movie quotes</string>
+    <string name="action_settings">Settings</string>
+    <string name="quote">quote</string>
+    <string name="movie">movie</string>
+    <string name="add_dialog_title">Add a quote</string>
+    <string name="clear_title">CLEAR</string>
+    <string name="enter_a_quote">Enter a quote</string>
+    <string name="enter_a_movie">enter a movie</string>
+    <string name="clear_message">are you sure you want to clear your quote?</string>
+    <string name="which_setting_title">which setting di you want?</string>
+
+    <string-array name="settings_options">
+        <item>Sound</item>
+        <item>Battery Saver</item>
+        <item>General</item>
+    </string-array>
+
+
+</resources>

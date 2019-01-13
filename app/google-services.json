@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "980938516871",
+    "firebase_url": "https://cuiy1-movie-quotes.firebaseio.com",
+    "project_id": "cuiy1-movie-quotes",
+    "storage_bucket": "cuiy1-movie-quotes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980938516871:android:89642f5f2144b562",
+        "android_client_info": {
+          "package_name": "edu.rosehulman.cuiy1.moviequotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980938516871-42q5mcbqeuugc00jo9ois05so5en35e9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBVbzK0hF84Ow_se1EO8tdOqapY5ZQRRM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

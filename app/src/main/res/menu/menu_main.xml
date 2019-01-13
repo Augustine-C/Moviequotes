@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="edu.rosehulman.cuiy1.moviequotes.MainActivity">
+    <item android:id="@+id/action_settings"
+          android:title="@string/action_settings"
+          android:orderInCategory="100"
+          app:showAsAction="never"/>
+
+
+    <item android:id="@+id/action_increase_font_size"
+          android:title="increase_font_size"
+          android:orderInCategory="10"
+          app:showAsAction="ifRoom"
+          android:icon="@android:drawable/arrow_up_float"
+        />
+    <item android:id="@+id/action_clear"
+          android:title="clear"
+          android:orderInCategory="15"
+          app:showAsAction="ifRoom"
+          android:icon="@drawable/ic_clear"
+        />
+</menu>
