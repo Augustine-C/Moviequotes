@@ -9,6 +9,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.EditText
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -16,6 +19,10 @@ import kotlinx.android.synthetic.main.content_main.*
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: MovieQuoteAdapter
+    private val settingRef = FirebaseFirestore.getInstance().collection("settings").document()
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -34,6 +41,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun updateAppAuthor(){
+        settingRef.get().addOnSuccessListener { snapshot : DocumentSnapshot? ->
+            val author = (snapshot?.get("author")?: "") as String
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("App Author")
+            val authoEditText = EditText(this)
+            authoEditText.hint = "App author's name"
+            authoEditText.setText(author)
+            builder.setView(authoEditText)
+            builder.setPositiveButton("ok"){_,_->
+                settingRef.set(mapOf(Pair("author",authoEditText.text.toString())))
+            }
+            builder.create().show()
+        }
+    }
 
 
     private fun showClearDialog(){

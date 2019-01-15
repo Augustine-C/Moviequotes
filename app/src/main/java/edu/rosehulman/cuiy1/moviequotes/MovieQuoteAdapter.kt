@@ -6,10 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import kotlinx.android.synthetic.main.add_dialog.view.*
 
 class MovieQuoteAdapter(val context : Context): RecyclerView.Adapter<MovieQuoteViewHolder>() {
@@ -21,14 +18,38 @@ class MovieQuoteAdapter(val context : Context): RecyclerView.Adapter<MovieQuoteV
 
     fun addSnapshotListener() {
         movieQuotesRef
-            .orderBy("timestamp",Query.Direction.DESCENDING)
+            .orderBy("timestamp",Query.Direction.ASCENDING)
             .addSnapshotListener{snapshot : QuerySnapshot?, firebaseFirestoreException ->
             if(firebaseFirestoreException != null) {
                 Log.d(Constants.TAG, "Firebase error: $firebaseFirestoreException")
                 return@addSnapshotListener
             }
+//                populateLocalQuotes(snapshot!!)
+                processSnapshotDiffs(snapshot!!)
+        }
+    }
 
-            populateLocalQuotes(snapshot!!)
+    private fun processSnapshotDiffs(snapshot: QuerySnapshot){
+        for (documentChange in snapshot.documentChanges){
+
+            val movieQuote = MovieQuote.fromSnapshot(documentChange.document)
+            when (documentChange.type){
+                DocumentChange.Type.ADDED->{
+                    movieQuotes.add(0,movieQuote)
+                    notifyItemInserted(0)
+                }
+                DocumentChange.Type.REMOVED->{
+                    val pos = movieQuotes.indexOf(movieQuote)
+                    movieQuotes.removeAt(pos)
+                    notifyItemRemoved(pos)
+                }
+                DocumentChange.Type.MODIFIED->{
+                    val pos = movieQuotes.indexOfFirst{movieQuote.id == it.id}
+                    movieQuotes[pos]
+                    notifyItemChanged(pos)
+                }
+            }
+
         }
     }
 
@@ -96,9 +117,12 @@ class MovieQuoteAdapter(val context : Context): RecyclerView.Adapter<MovieQuoteV
     }
 
     fun edit (position: Int,quote: String,movie: String){
-        movieQuotes[position].movie = movie
-        movieQuotes[position].quote = quote
-        notifyItemChanged(position)
+        val temp = movieQuotes[position].copy()
+        temp.movie = movie
+        temp.quote = quote
+//        movieQuotes[position].movie = movie
+//        movieQuotes[position].quote = quote
+        movieQuotesRef.document(movieQuotes[position].id).set(movieQuotes[position])
     }
 
     fun setSelected(position: Int){
