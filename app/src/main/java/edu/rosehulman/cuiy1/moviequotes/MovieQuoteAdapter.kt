@@ -45,7 +45,7 @@ class MovieQuoteAdapter(val context : Context): RecyclerView.Adapter<MovieQuoteV
                 }
                 DocumentChange.Type.MODIFIED->{
                     val pos = movieQuotes.indexOfFirst{movieQuote.id == it.id}
-                    movieQuotes[pos]
+                    movieQuotes[pos] = movieQuote
                     notifyItemChanged(pos)
                 }
             }
